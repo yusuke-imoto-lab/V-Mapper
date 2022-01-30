@@ -115,55 +115,95 @@ class dmapper(mapper):
 		fig_title='',
 	):
 		out_cyjs = open('%s/%s.cyjs' % (out_dir,out_file),"w")
+		js={}
+		js["data"] = {"name": fig_title}
+		js["elements"] = {}
+		js["elements"]["nodes"] = []
+
 		data_info = '\"data\":{\"name\":\"%s\"}' % (fig_title)
 		node_info = '\"nodes\":['
 		sample_name = np.array(sample_name)
 		meta_data   = np.array(meta_data)
 		num_meta = meta_func.shape[1]
 		for i in range(self.num_node):
-			node_info += '{\"data\" : {\"id\":\"%s\",\"member\":\"%s\",\"count\":%d,\"flow_id\":\"%s\"' % (self.node_name[i],str(list(sample_name[self.node_id_set[i]])),len(self.node_id_set[i]),str(self.node_flow_id[i]))
+			node = {
+				"data" : {
+					"id" : self.node_name[i],
+					"member": list(sample_name[self.node_id_set[i]]),
+					"count": len(self.node_id_set[i]),
+					"flow_id": str(self.node_flow_id[i])
+					}
+			}
 			for k in range(num_meta):
 				if meta_func[0,k] in meta_data[0]:
 					meta_func_name = meta_func[0,k]
 					if meta_func[1,k][-4:] == 'RECODE':
 						meta_func_name += '-RECODE'
 					meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func_name)[0][0]]
-					node_info += vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],self.node_id_set[i])
-			node_info += '}},'
-		node_info = node_info[:-1] + ']'
-		edge_info = '\"edges\":['
+					meta_info = vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],self.node_id_set[i])
+					node["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+			js["elements"]["nodes"].append(node)
+
+		js["elements"]["edges"] = []
 		for i in range(self.num_node):
 			for j in range(self.num_node):
 				if self.adjcy_mat[i,j] > 0 and i>j:
 					edge_idx_set = np.intersect1d(self.node_id_set[i],self.node_id_set[j])
-					edge_info += '{\"data\" : {\"source\":\"%s\",\"target\":\"%s\",\"name\":\"%s-%s\",\"member\":\"%s\","count":%d,\"annotation\":\"strict\",\"flow_id\":\"%s\",\"distance\":0' % (self.node_name[i],self.node_name[j],self.node_name[i],self.node_name[j],str(list(sample_name[edge_idx_set])),self.adjcy_mat[i,j],str(self.node_flow_id[i]))
+					edge = {
+						"data" : {
+							"source" : self.node_name[i],
+							"target": self.node_name[j],
+							"name":  "%s-%s"%(self.node_name[i],self.node_name[j]),
+							"member": list(sample_name[edge_idx_set]),
+							"count": int(self.adjcy_mat[i,j]),
+							"annotation": "strict",
+							"flow_id": str(self.node_flow_id[i]),
+							"distance": 0
+						}
+					}
 					for k in range(num_meta):
 						if meta_func[0,k] in meta_data[0]:
 							meta_func_name = meta_func[0,k]
 							if meta_func[1,k][-4:] == 'RECODE':
 								meta_func_name += '-RECODE'
 							meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func_name)[0][0]]
-							edge_info += vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set)
-					edge_info += '}},'
+							meta_info=vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set);
+							edge["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+					js["elements"]["edges"].append(edge)
 				elif len(np.intersect1d(self.node_clstr_id[i],self.node_clstr_id[j])):
 					i_graph = np.where(flow_graph_node==self.node_flow_id[i])[0][0]
 					j_graph = np.where(flow_graph_node==self.node_flow_id[j])[0][0]
 					dis = flow_graph_dis[i_graph,j_graph]
 					if dis == 1:
-						edge_info += '{\"data\" : {\"source\":\"%s\",\"target\":\"%s\",\"name\":\"%s-%s\",\"member\":\"[]\","count":0,\"annotation\":\"arrow\",\"flow_id\":\"%s-%s\",\"distance\":%d' % (self.node_name[i],self.node_name[j],self.node_name[i],self.node_name[j],str(self.node_flow_id[i]),str(self.node_flow_id[j]),int(dis))
+						annotation = arrow
+						dis=int(dis)
 					elif dis == np.inf:
-						edge_info += '{\"data\" : {\"source\":\"%s\",\"target\":\"%s\",\"name\":\"%s-%s\",\"member\":\"[]\","count":0,\"annotation\":\"dashed\",\"flow_id\":\"%s-%s\",\"distance\":null' % (self.node_name[i],self.node_name[j],self.node_name[i],self.node_name[j],str(self.node_flow_id[i]),str(self.node_flow_id[j]))
+						annotation = dashed
+						dis=None
 					elif dis > 1:
-						edge_info += '{\"data\" : {\"source\":\"%s\",\"target\":\"%s\",\"name\":\"%s-%s\",\"member\":\"[]\","count":0,\"annotation\":\"two_arrow\",\"flow_id\":\"%s-%s\",\"distance\":%d' % (self.node_name[i],self.node_name[j],self.node_name[i],self.node_name[j],str(self.node_flow_id[i]),str(self.node_flow_id[j]),int(dis))
+						annotation = two_arrow
+						dis=int(dis)
 					else:
 						continue
+					edge = {
+						"data" : {
+							"source" : self.node_name[i],
+							"target": self.node_name[j],
+							"name":  "%s-%s"%(self.node_name[i],self.node_name[j]),
+							"member": list(sample_name[edge_idx_set]),
+							"count": int(self.adjcy_mat[i,j]),
+							"annotation": annotation,
+							"flow_id": str(self.node_flow_id[i]),
+							"distance": dis
+						}
+					}
 					for k in range(num_meta):
 						if meta_func[0,k] in meta_data[0]:
 							meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func[0,k])[0][0]]
 							edge_idx_set = np.hstack((self.node_id_set[i],self.node_id_set[j]))
-							edge_info += vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set)
-					edge_info += '}},'
-		edge_info = edge_info[:-1] + ']'
+							meta_info=vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set);
+							edge["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+					js["elements"]["edges"].append(edge)
 		out_cyjs.write('{%s,\"elements\":{%s,%s}}' % (data_info,node_info,edge_info))
 
 def plot_flow(
