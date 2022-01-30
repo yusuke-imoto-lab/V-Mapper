@@ -95,11 +95,31 @@ class mapper():
 		self.node_name = node_name[:num_node]
 		self.adjcy_mat = np.empty([self.num_node,self.num_node],dtype=int)
 		self.adjcy_mat = np.array([[len(np.intersect1d(self.node_id_set[i],self.node_id_set[j])) for i in range(self.num_node)] for j in range(self.num_node)],dtype=int)
+		self.data = data
 		self.data_p = data_p
 		self.data_p_min = data_p_min
 		self.data_p_max = data_p_max
 		self.cube_min = cube_min
 		self.cube_max = cube_max
+		self.data_node_pca = None
+		self.data_node_tsne = None
+
+	def PCA(self):
+		if self.data_node_pca is None:
+			n,d = self.data.shape
+			data_node = np.empty([self.num_node,d],dtype=float)
+			for i in range(self.num_node):
+				data_node[i] = np.mean(self.data[self.node_id_set[i]],axis=0)
+			self.data_node_pca = PCA(n_components=2).fit_transform(data_node)
+
+	def TSNE(self):
+		if self.data_node_tsne is None:
+			n,d = self.data.shape
+			data_node = np.empty([self.num_node,d],dtype=float)
+			for i in range(self.num_node):
+				data_node[i] = np.mean(self.data[self.node_id_set[i]],axis=0)
+			self.data_node_tsne = TSNE(n_components=2).fit_transform(data_node)
+
 	## ** Visualization by Graphviz
 	def out_graph_graphviz(
 		self,
@@ -123,7 +143,45 @@ class mapper():
 		out_file = '%s/%s_graph' % (out_dir,out_file)
 		G.render(out_file)
 		os.remove('%s' % (out_file))
-	## ** Visualization by PCA
+
+	def out_graph(
+		self,
+		data,
+		method='PCA',
+		out_file='mapper',
+		title='',
+		label=['',''],
+	):
+		m = method.upper()
+		if m == "PCA":
+			self.PCA()
+			data_node = self.data_node_pca
+		elif m == "TSNE":
+			self.TSNE()
+			data_node = self.data_node_tsne
+
+		n_edge = np.sum(np.where(self.adjcy_mat>0,1,0))
+		data_edge = np.empty([n_edge,4],dtype=float)
+		i_edge = 0
+		for i in range(self.num_node):
+			for j in range(i+1,self.num_node):
+				if self.adjcy_mat[i,j] > 0:
+					data_edge[i_edge,0:2] = data_node[i]
+					data_edge[i_edge,2:4] = data_node[j]-data_node[i]
+					i_edge += 1
+
+		data_edge = data_edge[:i_edge]   
+		#
+		fig = plt.figure(figsize=(10,10))
+		ax = fig.add_subplot(1,1,1)
+		ax.scatter(data_node[:,0],data_node[:,1],zorder=1,s=10,color='black')
+		ax.quiver(data_edge[:,0],data_edge[:,1],data_edge[:,2],data_edge[:,3],color='gray',angles='xy',scale_units='xy',width=0.002,scale=1,alpha=0.5,zorder=0,headwidth=0,headlength=0,headaxislength=0)
+		ax.set_title(title)
+		ax.set_xlabel(label[0])
+		ax.set_ylabel(label[1])
+		plt.savefig(out_file)
+
+	## ** Visualization by PCA (Compatible)
 	def out_graph_pca(
 		self,
 		data,
@@ -132,32 +190,10 @@ class mapper():
 		fig_title='',
 		fig_fmt='png'
 	):
-		n,d = data.shape
-		data_node = np.empty([self.num_node,d],dtype=float)
-		for i in range(self.num_node):
-			data_node[i] = np.mean(data[self.node_id_set[i]],axis=0)
-		data_node_pca = PCA(n_components=2).fit_transform(data_node)
-		#
-		n_edge = np.sum(np.where(self.adjcy_mat>0,1,0))
-		data_edge_pca = np.empty([n_edge,4],dtype=float)
-		i_edge = 0
-		for i in range(self.num_node):
-			for j in range(i+1,self.num_node):
-				if self.adjcy_mat[i,j] > 0:
-					data_edge_pca[i_edge,0:2] = data_node_pca[i]
-					data_edge_pca[i_edge,2:4] = data_node_pca[j]-data_node_pca[i]
-					i_edge += 1
-		data_edge_pca = data_edge_pca[:i_edge]   
-		#
-		fig = plt.figure(figsize=(10,10))
-		ax = fig.add_subplot(1,1,1)
-		ax.scatter(data_node_pca[:,0],data_node_pca[:,1],zorder=1,s=10,color='black')
-		ax.quiver(data_edge_pca[:,0],data_edge_pca[:,1],data_edge_pca[:,2],data_edge_pca[:,3],color='gray',angles='xy',scale_units='xy',width=0.002,scale=1,alpha=0.5,zorder=0,headwidth=0,headlength=0,headaxislength=0)
-		ax.set_title('Mapper (PCA coordinate)')
-		ax.set_xlabel('PC1')
-		ax.set_ylabel('PC2')
-		plt.savefig('%s/%s_pca.%s' % (out_dir,out_file,fig_fmt))
-	## ** Visualization by tSNE
+		file='%s/%s_pca.%s' % (out_dir, out_file, fig_fmt)
+		self.out_graph(data,"PCA",file,"Mapper (PCA coordinate)",["PC1","PC2"])
+
+	## ** Visualization by tSNE (Compatible)
 	def out_graph_tsne(
 		self,
 		data,
@@ -166,31 +202,10 @@ class mapper():
 		fig_title='',
 		fig_fmt='png'
 	):
-		n,d = data.shape
-		data_node = np.empty([self.num_node,d],dtype=float)
-		for i in range(self.num_node):
-			data_node[i] = np.mean(data[self.node_id_set[i]],axis=0)
-		data_node_tsne = TSNE(n_components=2).fit_transform(data_node)
-		#
-		n_edge = np.sum(np.where(self.adjcy_mat>0,1,0))
-		flow = np.empty([n_edge,4],dtype=float)
-		i_edge = 0
-		for i in range(self.num_node):
-			for j in range(i+1,self.num_node):
-				if self.adjcy_mat[i,j] > 0:
-					flow[i_edge,0:2] = data_node_tsne[i]
-					flow[i_edge,2:4] = data_node_tsne[j]-data_node_tsne[i]
-					i_edge += 1
-		flow = flow[:i_edge]   
-		#
-		fig = plt.figure(figsize=(10,10))
-		ax = fig.add_subplot(1,1,1)
-		ax.scatter(data_node_tsne[:,0],data_node_tsne[:,1],zorder=1,s=10,color='black')
-		ax.quiver(flow[:,0],flow[:,1],flow[:,2],flow[:,3],color='gray',angles='xy',scale_units='xy',width=0.002,scale=1,alpha=0.5,zorder=0,headwidth=0,headlength=0,headaxislength=0)
-		ax.set_title('Mapper (tSNE coordinate)')
-		ax.set_xlabel('tSNE1')
-		ax.set_ylabel('tSNE2')
-		plt.savefig('%s/%s_tsne.%s' % (out_dir,out_file,fig_fmt))
+		file='%s/%s_tsne.%s' % (out_dir, out_file, fig_fmt)
+		self.out_graph(data,"TSNE",file,"Mapper (tSNE coordinate)",["tSNE1","tSNE2"])
+
+
 	# ** Visualization by Cytoscape 
 	def out_cytoscape(
 		self,
@@ -398,62 +413,83 @@ class mapper():
 		out_file_png = '%s/%s_graph' % (out_dir,out_file)
 		G.render(out_file_png)
 		os.remove('%s' % (out_file_png))
-	## ** Visualization with velocity by PCA
-	def out_graph_pca_V(
+
+	## ** Visualization with velocity by Graphviz
+
+	def out_graph_V(
 		self,
+		data,
+		data_vel,
+		method='PCA',
+		out_file='graph',
+		title='',
+		label=['',''],
+	):
+		n_node = self.num_node
+		n_edge = int(0.5 * (np.sum(np.where(self.adjcy_mat > 0, 1, 0)) - n_node))
+
+		m = method.upper()
+		if m == "PCA":
+			self.PCA()
+			data_node = self.data_node_pca
+		elif m == "TSNE":
+			self.TSNE()
+			data_node = self.data_node_tsne
+
+		#
+		data_edge = np.empty([n_edge, 4], dtype=float)
+		edge_flow = np.zeros([n_edge], dtype=float)
+		i_edge = 0
+		for i in range(n_node):
+			for j in range(i + 1, n_node):
+				if self.adjcy_mat[i, j] > 0:
+					idx_i = self.node_id_set[i]
+					idx_j = self.node_id_set[j]
+					idx_ij = np.intersect1d(idx_i, idx_j)
+					mean_i = np.mean(data[idx_i], axis=0)
+					mean_j = np.mean(data[idx_j], axis=0)
+					rltv_vel = mean_j - mean_i
+					edge_vel = np.mean(data_vel[idx_ij], axis=0)
+					vel = np.dot(rltv_vel, edge_vel)
+					if vel > 0:
+						data_edge[i_edge, 0:2] = data_node[i]
+						data_edge[i_edge, 2:4] = data_node[j] - data_node[i]
+					else:
+						data_edge[i_edge, 0:2] = data_node[j]
+						data_edge[i_edge, 2:4] = data_node[i] - data_node[j]
+					mean_vel = np.mean(data_vel[idx_ij], axis=0)
+					flow = np.dot(mean_vel, rltv_vel) / np.linalg.norm(rltv_vel)
+					edge_flow[i_edge] = flow
+					i_edge += 1
+		data_edge = data_edge[:i_edge]
+		#
+		fig = plt.figure(figsize=(10, 10))
+		ax = fig.add_subplot(1, 1, 1)
+		ax.scatter(data_node[:, 0], data_node[:,1], zorder=1, s=5, color='gray')
+		clim_min = np.percentile(edge_flow, 20)
+		clim_max = np.percentile(edge_flow, 80)
+		clim_delta = clim_max - clim_min
+		ax.quiver(data_edge[:, 0], data_edge[:, 1], data_edge[:, 2], data_edge[:, 3], edge_flow, cmap='coolwarm',
+			clim=(clim_min, clim_max), angles='xy', scale_units='xy', width=0.002, scale=1, alpha=0.8, zorder=0, headwidth=5, headlength=5, headaxislength=5)
+		ax.set_title(title)
+		ax.set_xlabel(label[0])
+		ax.set_ylabel(label[1])
+		plt.savefig(out_file)
+
+	## ** Visualization with velocity by PCA (Compatible)
+	def out_graph_pca_V(
+	self,
 		data,
 		data_vel,
 		out_dir='.',
 		out_file='vmapper',
 		fig_title='',
-		fig_fmt='png',
+		fig_fmt='png'
 	):
-		n,d = data.shape
-		n_node = self.num_node
-		n_edge = int(0.5*(np.sum(np.where(self.adjcy_mat>0,1,0))-n_node))
-		data_node = np.empty([n_node,d],dtype=float)
-		for i in range(n_node):
-			data_node[i] = np.mean(data[self.node_id_set[i]],axis=0)
-		data_node_pca = PCA(n_components=2).fit_transform(data_node)
-		#
-		data_edge_pca = np.empty([n_edge,4],dtype=float)
-		edge_flow = np.zeros([n_edge],dtype=float)
-		i_edge = 0
-		for i in range(n_node):
-			for j in range(i+1,n_node):
-				if self.adjcy_mat[i,j] > 0:
-					idx_i = self.node_id_set[i]
-					idx_j = self.node_id_set[j]
-					idx_ij = np.intersect1d(idx_i,idx_j)
-					mean_i = np.mean(data[idx_i],axis=0)
-					mean_j = np.mean(data[idx_j],axis=0)
-					rltv_vel = mean_j-mean_i
-					edge_vel = np.mean(data_vel[idx_ij],axis=0)
-					vel = np.dot(rltv_vel,edge_vel)
-					if vel>0:
-						data_edge_pca[i_edge,0:2] = data_node_pca[i]
-						data_edge_pca[i_edge,2:4] = data_node_pca[j]-data_node_pca[i]
-					else:
-						data_edge_pca[i_edge,0:2] = data_node_pca[j]
-						data_edge_pca[i_edge,2:4] = data_node_pca[i]-data_node_pca[j]
-					mean_vel = np.mean(data_vel[idx_ij],axis=0)
-					flow = np.dot(mean_vel,rltv_vel)/np.linalg.norm(rltv_vel)
-					edge_flow[i_edge] = flow
-					i_edge += 1
-		data_edge_pca = data_edge_pca[:i_edge]
-		#
-		fig = plt.figure(figsize=(10,10))
-		ax = fig.add_subplot(1,1,1)
-		ax.scatter(data_node_pca[:,0],data_node_pca[:,1],zorder=1,s=5,color='gray')
-		clim_min = np.percentile(edge_flow,20)
-		clim_max = np.percentile(edge_flow,80)
-		clim_delta = clim_max-clim_min
-		ax.quiver(data_edge_pca[:,0],data_edge_pca[:,1],data_edge_pca[:,2],data_edge_pca[:,3],edge_flow,cmap='coolwarm',clim=(clim_min,clim_max),angles='xy',scale_units='xy',width=0.002,scale=1,alpha=0.8,zorder=0,headwidth=5,headlength=5,headaxislength=5)
-		ax.set_title('V-Mapper (PCA coordinate)')
-		ax.set_xlabel('PC1')
-		ax.set_ylabel('PC2')
-		plt.savefig('%s/%s_pca.%s' % (out_dir,out_file,fig_fmt))
-	## ** Visualization with velocity by tSNE
+		file='%s/%s_pca.%s' % (out_dir, out_file, fig_fmt)
+		self.out_graph_V(data,data_vel,"PCA",file,"V-Mapper (PCA coordinate)",["PC1","PC2"])
+
+	## ** Visualization with velocity by tSNE (Compatible)
 	def out_graph_tsne_V(
 		self,
 		data,
@@ -463,51 +499,9 @@ class mapper():
 		fig_title='',
 		fig_fmt='png'
 	):
-		n,d = data.shape
-		n_node = self.num_node
-		n_edge = int(0.5*(np.sum(np.where(self.adjcy_mat>0,1,0))-n_node))
-		data_node = np.empty([self.num_node,d],dtype=float)
-		for i in range(self.num_node):
-			data_node[i] = np.mean(data[self.node_id_set[i]],axis=0)
-		data_node_tsne = TSNE(n_components=2).fit_transform(data_node)
-		#
-		data_edge_tsne = np.empty([n_edge,4],dtype=float)
-		edge_flow = np.zeros([n_edge],dtype=float)
-		i_edge = 0
-		for i in range(self.num_node):
-			for j in range(i+1,self.num_node):
-				if self.adjcy_mat[i,j] > 0:
-					idx_i = self.node_id_set[i]
-					idx_j = self.node_id_set[j]
-					idx_ij = np.intersect1d(idx_i,idx_j)
-					mean_i = np.mean(data[idx_i],axis=0)
-					mean_j = np.mean(data[idx_j],axis=0)
-					rltv_vel = mean_j-mean_i
-					edge_vel = np.mean(data_vel[idx_ij],axis=0)
-					vel = np.dot(rltv_vel,edge_vel)
-					if vel>0:
-						data_edge_tsne[i_edge,0:2] = data_node_tsne[i]
-						data_edge_tsne[i_edge,2:4] = data_node_tsne[j]-data_node_tsne[i]
-					else:
-						data_edge_tsne[i_edge,0:2] = data_node_tsne[j]
-						data_edge_tsne[i_edge,2:4] = data_node_tsne[i]-data_node_tsne[j]
-					mean_vel = np.mean(data_vel[idx_ij],axis=0)
-					flow = np.dot(mean_vel,rltv_vel)/np.linalg.norm(rltv_vel)
-					edge_flow[i_edge] = flow
-					i_edge += 1
-		data_edge_tsne = data_edge_tsne[:i_edge]
-		#
-		fig = plt.figure(figsize=(10,10))
-		ax = fig.add_subplot(1,1,1)
-		ax.scatter(data_node_tsne[:,0],data_node_tsne[:,1],zorder=1,s=5,color='gray')
-		clim_min = np.percentile(edge_flow,20)
-		clim_max = np.percentile(edge_flow,80)
-		clim_delta = clim_max-clim_min
-		ax.quiver(data_edge_tsne[:,0],data_edge_tsne[:,1],data_edge_tsne[:,2],data_edge_tsne[:,3],edge_flow,cmap='coolwarm',clim=(clim_min,clim_max),angles='xy',scale_units='xy',width=0.002,scale=1,alpha=0.8,zorder=0,headwidth=5,headlength=5,headaxislength=5)
-		ax.set_title('V-Mapper (tSNE coordinate)')
-		ax.set_xlabel('tSNE1')
-		ax.set_ylabel('tSNE2')
-		plt.savefig('%s/%s_tsne.%s' % (out_dir,out_file,fig_fmt))
+		file='%s/%s_tsne.%s' % (out_dir, out_file, fig_fmt)
+		self.out_graph_V(data,data_vel,"TSNE",file,"V-Mapper (tSNE coordinate)",["tSNE1","tSNE2"])
+
 	def out_cytoscape_V(
 		self,
 		data,
