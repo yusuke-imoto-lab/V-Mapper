@@ -11,6 +11,7 @@ import sklearn
 import vmapper.color
 import vmapper.meta_func
 from sklearn.manifold import TSNE
+import json
 
 ## [Mapper]
 class mapper():
@@ -217,51 +218,68 @@ class mapper():
 		out_file='mapper',
 		fig_title='',
 	):
-		n,d = data.shape
-		data_node = np.empty([self.num_node,d],dtype=float)
-		for i in range(self.num_node):
-			data_node[i] = np.mean(data[self.node_id_set[i]],axis=0)
-		data_node_pca = PCA(n_components=2).fit_transform(data_node)
-		data_node_tsne = TSNE(n_components=2).fit_transform(data_node)
+
+		self.PCA()
+		self.TSNE()
+		data_node_pca = self.data_node_pca
+		data_node_tsne = self.data_node_tsne
 		out_cyjs = open('%s/%s.cyjs' % (out_dir,out_file),"w")
-		data_info = '\"data\":{\"name\":\"%s\"}' % (fig_title)
-		node_info = '\"nodes\":['
+		js={}
+		js["data"] = {"name": fig_title}
+		js["elements"] = {}
+		js["elements"]["nodes"] = []
 		sample_name = np.array(sample_name)
 		meta_data   = np.array(meta_data)
 		num_meta = meta_func.shape[1]
 		for i in range(self.num_node):
-			member = '%s' % sample_name[self.node_id_set[i]][0]
-			for j in range(len(sample_name[self.node_id_set[i]])-1):
-				member += ', %s' % sample_name[self.node_id_set[i]][j+1] 
-			node_info += '{\"data\" : {\"id\":\"%s\",\"member\":\"%s\",\"count\":%d,\"PCA1\":%.5f,\"PCA2\":%.5f,\"tSNE1\":%.5f,\"tSNE2\":%.5f' % (self.node_name[i],member,len(self.node_id_set[i]),data_node_pca[i,0],data_node_pca[i,1],data_node_tsne[i,0],data_node_tsne[i,1])
+			node = {
+				"data" : {
+					"id" : self.node_name[i],
+					"member": list(sample_name[self.node_id_set[i]]),
+					"count": len(self.node_id_set[i]),
+					"PCA1": float(data_node_pca[i,0]),
+					"PCA2": float(data_node_pca[i,1]),
+					"tSNE1": float(data_node_tsne[i,0]),
+					"tSNE2": float(data_node_tsne[i,1])
+				}
+			}
 			for k in range(num_meta):
 				if meta_func[0,k] in meta_data[0]:
 					meta_func_name = meta_func[0,k]
 					if meta_func[1,k][-4:] == 'RECODE':
 						meta_func_name += '-RECODE'
 					meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func_name)[0][0]]
-					node_info += ',\"%s[%s]\":%s' % (meta_func[0,k],meta_func[1,k],vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],self.node_id_set[i]))
-			node_info += '}},'
-		node_info = node_info[:-1] + ']'
-		edge_info = '\"edges\":['
+					meta_info=vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],self.node_id_set[i])
+					node["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+			js["elements"]["nodes"].append(node)
+
+		js["elements"]["edges"] = []
 		for i in range(self.num_node):
 			for j in range(i+1,self.num_node):
 				if self.adjcy_mat[i,j] > 0:
 					edge_idx_set = np.intersect1d(self.node_id_set[i],self.node_id_set[j])
-					member = '%s' % sample_name[edge_idx_set][0]
-					for k in range(len(sample_name[edge_idx_set])-1):
-						member += ', %s' % sample_name[edge_idx_set][k+1]
-					edge_info += '{\"data\" : {\"source\":\"%s\",\"target\":\"%s\",\"name\":\"%s-%s\",\"member\":\"%s\","count":%d,\"annotation\":\"strict\"' % (self.node_name[i],self.node_name[j],self.node_name[i],self.node_name[j],member,self.adjcy_mat[i,j])
+					edge = {
+						"data" : {
+							"source" : self.node_name[i],
+							"target": self.node_name[j],
+							"name":  "%s-%s"%(self.node_name[i],self.node_name[j]),
+							"member": list(sample_name[edge_idx_set]),
+							"count": int(self.adjcy_mat[i,j]),
+							"annotation": "strict"
+						}
+					}
 					for k in range(num_meta):
 						if meta_func[0,k] in meta_data[0]:
 							meta_func_name = meta_func[0,k]
 							if meta_func[1,k][-4:] == 'RECODE':
 								meta_func_name += '-RECODE'
 							meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func_name)[0][0]]
-							edge_info += ',\"%s[%s]\":%s' % (meta_func[0,k],meta_func[1,k],vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set))
-					edge_info += '}},'
-		edge_info = edge_info[:-1] + ']'
-		out_cyjs.write('{%s,\"elements\":{%s,%s}}' % (data_info,node_info,edge_info))
+							meta_info=vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set);
+							edge["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+
+					js["elements"]["edges"].append(edge)
+		json.dump(js,out_cyjs,ensure_ascii=False)
+
 	def out_cytoscape_light(
 		self,
 		sample_name,
@@ -295,10 +313,7 @@ class mapper():
 		for i in range(self.num_node):
 			sif_data[i] = self.node_name[i]
 			meta_data_out_node[i+1,0] = self.node_name[i]
-			member = '%s' % sample_name[self.node_id_set[i]][0]
-			for j in range(len(sample_name[self.node_id_set[i]])-1):
-				member += ', %s' % sample_name[self.node_id_set[i]][j+1] 
-			meta_data_out_node[i+1,1] = member
+			meta_data_out_node[i+1,1] = ','.join(sample_name[self.node_id_set[i]])
 			meta_data_out_node[i+1,2] = len(self.node_id_set[i])
 			
 			for k in range(num_meta):
@@ -315,10 +330,7 @@ class mapper():
 					edge_idx_set = np.intersect1d(self.node_id_set[i],self.node_id_set[j])
 					sif_data[self.num_node+i_edge] = '%s - %s' % (self.node_name[i],self.node_name[j])
 					meta_data_out_edge[i_edge+1,0] = '%s (-) %s' % (self.node_name[i],self.node_name[j])
-					member = '%s' % sample_name[edge_idx_set][0]
-					for k in range(len(sample_name[edge_idx_set])-1):
-						member += ', %s' % sample_name[edge_idx_set][k+1]
-					meta_data_out_edge[i_edge+1,1] = member
+					meta_data_out_edge[i_edge+1,1] = ','.join(sample_name[edge_idx_set])
 					meta_data_out_edge[i_edge+1,2] = self.adjcy_mat[i,j]
 					for k in range(num_meta):
 						if meta_func[0,k] in meta_data[0]:
