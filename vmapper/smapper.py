@@ -11,7 +11,7 @@ import sklearn
 import vmapper.color
 import vmapper.meta_func
 from sklearn.manifold import TSNE
-
+import json
 
 ## [Simple Mapper]
 class smapper():
@@ -143,35 +143,54 @@ class smapper():
 		fig_title='',
 	):
 		out_cyjs = open('%s/%s.cyjs' % (out_dir,out_file),"w")
-		data_info = '\"data\":{\"name\":\"%s\"}' % (fig_title)
-		node_info = '\"nodes\":['
+		js={}
+		js["data"] = {"name": fig_title}
+		js["elements"] = {}
+		js["elements"]["nodes"] = []
+
 		sample_name = np.array(sample_name)
 		meta_data   = np.array(meta_data)
 		num_meta = meta_func.shape[1]
 		for i in range(self.num_node):
-			node_info += '{\"data\" : {\"id\":\"%s\",\"member\":\"%s\",\"count\":%d' % (self.node_name[i],str(list(sample_name[self.node_id_set[i]])),len(self.node_id_set[i]))
+			node = {
+				"data" : {
+					"id" : self.node_name[i],
+					"member": list(sample_name[self.node_id_set[i]]),
+					"count": len(self.node_id_set[i])
+					}
+			}
 			for k in range(num_meta):
 				if meta_func[0,k] in meta_data[0]:
 					meta_func_name = meta_func[0,k]
 					if meta_func[1,k][-4:] == 'RECODE':
 						meta_func_name += '-RECODE'
 					meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func_name)[0][0]]
-					node_info += vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],self.node_id_set[i])
-			node_info += '}},'
-		node_info = node_info[:-1] + ']'
-		edge_info = '\"edges\":['
+					meta_info=vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],self.node_id_set[i])
+					node["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+			js["elements"]["nodes"].append(node)
+
+		js["elements"]["edges"] = []
 		for i in range(self.num_node):
 			for j in range(i+1,self.num_node):
 				if self.adjcy_mat[i,j] > 0:
 					edge_idx_set = np.intersect1d(self.node_id_set[i],self.node_id_set[j])
-					edge_info += '{\"data\" : {\"source\":\"%s\",\"target\":\"%s\",\"name\":\"%s-%s\",\"member\":\"%s\","count":%d,\"annotation\":\"strict\"' % (self.node_name[i],self.node_name[j],self.node_name[i],self.node_name[j],str(list(sample_name[edge_idx_set])),self.adjcy_mat[i,j])
+					edge = {
+						"data" : {
+							"source" : self.node_name[i],
+							"target": self.node_name[j],
+							"name":  "%s-%s"%(self.node_name[i],self.node_name[j]),
+							"member": list(sample_name[edge_idx_set]),
+							"count": int(self.adjcy_mat[i,j]),
+							"annotation": "strict"
+						}
+					}
 					for k in range(num_meta):
 						if meta_func[0,k] in meta_data[0]:
 							meta_func_name = meta_func[0,k]
 							if meta_func[1,k][-4:] == 'RECODE':
 								meta_func_name += '-RECODE'
 							meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func_name)[0][0]]
-							edge_info += vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set)
-					edge_info += '}},'
-		edge_info = edge_info[:-1] + ']'
-		out_cyjs.write('{%s,\"elements\":{%s,%s}}' % (data_info,node_info,edge_info))
+							meta_info=vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set);
+							edge["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+					js["elements"]["edges"].append(edge)
+		json.dump(js,out_cyjs,ensure_ascii=False)
