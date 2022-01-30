@@ -628,34 +628,50 @@ class mapper():
 				    break
 				n_cycle_temp = np.sum(cycle_temp)
 		#
-		data_node = np.empty([n_node,d],dtype=float)
-		for i in range(n_node):
-			data_node[i] = np.mean(data[self.node_id_set[i]],axis=0)
-		data_node_pca = PCA(n_components=2).fit_transform(data_node)
-		data_node_tsne = TSNE(n_components=2).fit_transform(data_node)
+
+		self.PCA()
+		self.TSNE()
+		data_node_pca = self.data_node_pca
+		data_node_tsne = self.data_node_tsne
+
 		out_cyjs = open('%s/%s.cyjs' % (out_dir,out_file),"w")
-		data_info = '\"data\":{\"name\":\"%s\"}' % (fig_title)
-		node_info = '\"nodes\":['
+		js={}
+		js["data"] = {"name": fig_title}
+		js["elements"] = {}
+		js["elements"]["nodes"] = []
+
 		sample_name = np.array(sample_name)
 		meta_data   = np.array(meta_data)
 		num_meta = meta_func.shape[1]
 		for i in range(self.num_node):
-			member = '%s' % sample_name[self.node_id_set[i]][0]
-			for j in range(len(sample_name[self.node_id_set[i]])-1):
-				member += ', %s' % sample_name[self.node_id_set[i]][j+1] 
+			node = {
+				"data" : {
+					"id" : self.node_name[i],
+					"member": list(sample_name[self.node_id_set[i]]),
+					"count": len(self.node_id_set[i]),
+					"PCA1": float(data_node_pca[i,0]),
+					"PCA2": float(data_node_pca[i,1]),
+					"tSNE1": float(data_node_tsne[i,0]),
+					"tSNE2": float(data_node_tsne[i,1]),
+					"divergence": float(divergence[i]),
+					"potential": float(potential[i]),
+					"diffusion": float(diffusion[i]),
+					"cycle_score(flow)": float(cycle_score_flow[i]),
+					"cycle_score(div0 flow)": float(cycle_score_div0[i])
+				}
+			}
 			idx_i = self.node_id_set[i]
 			vel_mag = np.linalg.norm(np.mean(data_vel[idx_i],axis=0))
-			node_info += '{\"data\" : {\"id\":\"%s\",\"member\":\"%s\",\"count\":%d,\"divergence\":%.5f,\"potential\":%.5f,\"diffusion\":%.5f,\"cycle_score(flow)\":%d,\"cycle_score(div0 flow)\":%d,\"PCA1\":%.5f,\"PCA2\":%.5f,\"tSNE1\":%.5f,\"tSNE2\":%.5f' % (self.node_name[i],member,len(self.node_id_set[i]),divergence[i],potential[i],diffusion[i],cycle_score_flow[i],cycle_score_div0[i],data_node_pca[i,0],data_node_pca[i,1],data_node_tsne[i,0],data_node_tsne[i,1])
 			for k in range(num_meta):
 				if meta_func[0,k] in meta_data[0]:
 					meta_func_name = meta_func[0,k]
 					if meta_func[1,k][-4:] == 'RECODE':
 						meta_func_name += '-RECODE'
 					meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func_name)[0][0]]
-					node_info += ',\"%s[%s]\":%s' % (meta_func[0,k],meta_func[1,k],vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],self.node_id_set[i]))
-			node_info += '}},'
-		node_info = node_info[:-1] + ']'
-		edge_info = '\"edges\":['
+					meta_info = vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],self.node_id_set[i])
+					node["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+			js["elements"]["nodes"].append(node)
+		js["elements"]["edges"] = []
 		i_edge = 0
 		for i in range(n_node):
 			for j in range(i+1,n_node):
@@ -719,10 +735,35 @@ class mapper():
 						div0_flow_source = 'Arrow'
 						div0_flow_target = 'None'
 						div0_flow_consist = 'false'
-					member = '%s' % sample_name[edge_idx_set][0]
-					for k in range(len(sample_name[edge_idx_set])-1):
-						member += ', %s' % sample_name[edge_idx_set][k+1]
-					edge_info += '{\"data\" : {\"source\":\"%s\",\"target\":\"%s\",\"name\":\"%s-%s\",\"member\":\"%s\","count":%d,\"annotation\":\"Arrow\",\"pt_flow\":%.5f,\"flow_mag\":%.5f,\"vel_prob\":%.5f,\"ind_vel_prob\":%.5f,\"hetero_prob\":%.5f,\"flow_score\":%.5f,\"hetero_score\":%.5f,\"grad_flow\":%.5f,\"grad_flow_source\":\"%s\",\"grad_flow_target\":\"%s\",\"grad_flow_arrow_consist\":%s,\"div0_flow\":%.5f,\"div0_flow_source\":\"%s\",\"div0_flow_target\":\"%s\",\"div0_flow_arrow_consist\":%s,\"potential_mean\":%.5f,\"potential_source\":%.5f,\"potential_target\":%.5f' % (self.node_name[s_idx],self.node_name[t_idx],self.node_name[s_idx],self.node_name[t_idx],member,self.adjcy_mat[i,j],pt_flow,flow_mag,vel_prob,ind_vel_prob,hetero_prob,flow_score,hetero_score,np.abs(grad_flow[i_edge]),grad_flow_source,grad_flow_target,grad_flow_consist,np.abs(div0_flow[i_edge]),div0_flow_source,div0_flow_target,div0_flow_consist,0.5*(potential[s_idx]+potential[t_idx]),potential[s_idx],potential[t_idx])
+
+					edge = {
+						"data" : {
+							"source": self.node_name[s_idx],
+							"target": self.node_name[t_idx],
+							"name":  "%s-%s"%(self.node_name[s_idx],self.node_name[t_idx]),
+							"member": list(sample_name[edge_idx_set]),
+							"count": int(self.adjcy_mat[i,j]),
+							"annotation": "Arrow",
+							"pt_flow": pt_flow,
+							"flow_mag": flow_mag,
+							"vel_prob": vel_prob,
+							"ind_vel_prob": ind_vel_prob,
+							"hetero_prob": hetero_prob,
+							"flow_score": flow_score,
+							"hetero_score": hetero_score,
+							"grad_flow": np.abs(grad_flow[i_edge]),
+							"grad_flow_source": grad_flow_source,
+							"grad_flow_target": grad_flow_target,
+							"grad_flow_arrow_consist": grad_flow_consist,
+							"div0_flow": np.abs(div0_flow[i_edge]),
+							"div0_flow_source": div0_flow_source,
+							"div0_flow_target": div0_flow_target,
+							"div0_flow_arrow_consist": div0_flow_consist,
+							"potential_mean": 0.5*(potential[s_idx]+potential[t_idx]),
+							"potential_source": potential[s_idx],
+							"potential_target": potential[t_idx]
+						}
+					}
 					i_edge += 1
 					for k in range(num_meta):
 						if meta_func[0,k] in meta_data[0]:
@@ -730,8 +771,7 @@ class mapper():
 							if meta_func[1,k][-4:] == 'RECODE':
 								meta_func_name += '-RECODE'
 							meta_data_sec = meta_data[1:,np.where(meta_data[0]==meta_func_name)[0][0]]
-							edge_info += ',\"%s[%s]\":%s' % (meta_func[0,k],meta_func[1,k],vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set))
-					edge_info += '}},'
-		edge_info = edge_info[:-1] + ']'
-		out_cyjs.write('{%s,\"elements\":{%s,%s}}' % (data_info,node_info,edge_info))
-
+							meta_info = vmapper.meta_func.add_meta_info(meta_func[0,k],meta_data_sec,meta_func[1,k],edge_idx_set)
+							edge["data"]['%s[%s]'%(meta_func[0,k],meta_func[1,k])] = meta_info.replace('"','')
+					js["elements"]["edges"].append(edge)
+		json.dump(js,out_cyjs,ensure_ascii=False)
