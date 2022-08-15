@@ -420,8 +420,8 @@ class mapper():
             out_file='graph',
             title='',
             label=['',''],
-    ):
-        n, d = data.shape
+	):
+		n, d = data.shape
         n_node = self.num_node
         n_edge = int(
             0.5 * (np.sum(np.where(self.adjcy_mat > 0, 1, 0)) - n_node))
