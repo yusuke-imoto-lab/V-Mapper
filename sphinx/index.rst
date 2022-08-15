@@ -36,6 +36,7 @@ To use V-Mapper, import ``vmapper``.
 	:caption: Contents:
 	
 	examples/index
+	reference/index
 
 
 Indices and tables
