@@ -412,7 +412,7 @@ class mapper():
 		out_file_png = '%s/%s_graph' % (out_dir,out_file)
 		G.render(out_file_png)
 		os.remove('%s' % (out_file_png))
-
+	
     def out_graph(
             self,
             data,
