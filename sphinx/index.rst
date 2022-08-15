@@ -1,4 +1,4 @@
-.. scRECODE documentation master file, created by
+.. V-Mapper documentation master file, created by
    sphinx-quickstart on Fri Oct  8 15:45:48 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
