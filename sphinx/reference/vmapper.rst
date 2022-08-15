@@ -1,6 +1,6 @@
 .. module:: vmapper
 
-RECODE
+V-Mapper
 =============
 
 .. automodule:: vmapper
