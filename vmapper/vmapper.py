@@ -21,7 +21,21 @@ class mapper():
 		overlap=0.5,
 		clusterer=cluster.DBSCAN(eps=3.0, min_samples=1),
 		adaptive=True
-	):
+		):
+		""" 
+		V-Mapper (Resolution of curse of dimensionality in single-cell data analysis). A noise reduction method for single-cell sequencing data. 
+		
+		Parameters
+		----------
+		data : ndarray/anndata of shape (n_samples, n_features)
+			Tranceforming single-cell sequencing data matrix (row:cell, culumn:gene/peak).
+		
+		Attributes
+		----------
+		log_ : dict
+			Running log.
+		
+		"""
 		color_id_max = len(vmapper.color.color_dict)
 		Num,Dim = data_p.shape
 		data_p_min = np.min(data_p,axis=0)
