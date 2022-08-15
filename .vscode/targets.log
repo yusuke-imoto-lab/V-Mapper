@@ -1,0 +1,293 @@
+make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
+# GNU Make 4.1
+# Built for x86_64-pc-msys
+# Copyright (C) 1988-2014 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Mon Aug 15 16:16:23 2022
+
+# Variables
+
+# 'override' directive
+GNUMAKEFLAGS := 
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+OMP_WAIT_POLICY = PASSIVE
+# default
+.SHELLFLAGS := -c
+# makefile
+MAKEFLAGS = pqrR
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+HOMEDRIVE = C:
+# automatic
+@F = $(notdir $@)
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# makefile
+CURDIR := /cygdrive/c/Users/expou/Documents/GitHub/V-Mapper
+# default
+SHELL := /bin/sh
+# environment
+WINDIR = C:\WINDOWS
+# environment
+VSCODE_NLS_CONFIG = {"locale":"ja","availableLanguages":{"*":"ja"},"_languagePackId":"f5b8523d60216379ef9ba6dc243eb093.ja","_translationsConfigFile":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\f5b8523d60216379ef9ba6dc243eb093.ja\\tcf.json","_cacheRoot":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\f5b8523d60216379ef9ba6dc243eb093.ja","_resolvedLanguagePackCoreLocation":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\f5b8523d60216379ef9ba6dc243eb093.ja\\c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5","_corruptedFile":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\f5b8523d60216379ef9ba6dc243eb093.ja\\corrupted.info","_languagePackSupport":true}
+# environment
+ONEDRIVE = C:\OneDrive - Kyoto University
+# environment
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+# makefile
+MAKEFILE_LIST := 
+# environment
+FPS_BROWSER_USER_PROFILE_STRING = Default
+# environment
+TMP = /cygdrive/c/Users/expou/AppData/Local/Temp
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+PROGRAMW6432 = C:\Program Files
+# environment
+PROGRAMDATA = C:\ProgramData
+# environment
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-1be49af6-e434-4fc0-8bc5-edae66c8bb9f-sock
+# environment
+VSCODE_CWD = C:\Users\expou\AppData\Local\GitHubDesktop\app-3.0.0
+# default
+MAKE_HOST := x86_64-pc-msys
+# environment
+PATH = /cygdrive/c/Program Files/ImageMagick-7.0.10-Q16-HDRI:/cygdrive/c/texlive/2020/bin/win32:/cygdrive/c/WINDOWS/system32:/cygdrive/c/WINDOWS:/cygdrive/c/WINDOWS/System32/Wbem:/cygdrive/c/WINDOWS/System32/WindowsPowerShell/v1.0:/cygdrive/c/WINDOWS/System32/OpenSSH:/cygdrive/c/w32tex/bin:/cygdrive/c/Strawberry/c/bin:/cygdrive/c/Strawberry/perl/site/bin:/cygdrive/c/Strawberry/perl/bin:/cygdrive/c/Program Files (x86)/PDFtk/bin:/cygdrive/c/Program Files/Git/cmd:/cygdrive/c/Program Files/nodejs:/cygdrive/c/Users/expou/anaconda3:/mingw-w64/bin:/usr/bin:/bin:/cygdrive/c/Users/expou/anaconda3/Scripts:/cygdrive/c/Users/expou/AppData/Local/Programs/Julia-1.6.3/bin:/cygdrive/c/Users/expou/AppData/Local/Microsoft/WindowsApps:/cygdrive/c/Users/expou/AppData/Local/GitHubDesktop/bin:/cygdrive/c/Users/expou/AppData/Local/Programs/Microsoft VS Code/bin:/cygdrive/c/Users/expou/AppData/Roaming/npm
+# environment
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# environment
+LC_ALL = C
+# environment
+PROCESSOR_ARCHITECTURE = AMD64
+# environment
+USERPROFILE = C:\Users\expou
+# environment
+!C: = c:\Users\expou\Documents\GitHub\V-Mapper
+# environment
+ALLUSERSPROFILE = C:\ProgramData
+# environment
+VSCODE_LOG_STACK = false
+# environment
+NUMBER_OF_PROCESSORS = 8
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+HOMCLOUD_PARAVIEW_PROGRAMNAME = C:\Program Files\ParaView 5.10.0-Windows-Python3.9-msvc2017-AMD64\bin\paraview.exe
+# automatic
+%F = $(notdir $%)
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_36112_XAHPDAIGMVITUTPR
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+COMPUTERNAME = DESKTOP-L0CHSDO
+# environment
+PROGRAMFILES = C:\Program Files
+# environment
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# environment
+RTOOLS40_HOME = C:\rtools40
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+USERNAME = expou
+# environment
+PUBLIC = C:\Users\Public
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/expou
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = C:\Users\expou\AppData\Roaming\Code\CachedData\c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+COMMONPROGRAMFILES = C:\Program Files\Common Files
+ 
+# environment
+LOGONSERVER = \\DESKTOP-L0CHSDO
+# environment
+ONEDRIVECONSUMER = C:\OneDrive
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+USERDOMAIN = DESKTOP-L0CHSDO
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+LOCAL_GIT_DIRECTORY = C:\Users\expou\AppData\Local\GitHubDesktop\app-3.0.0\resources\app\git
+# environment
+ONEDRIVECOMMERCIAL = C:\OneDrive - Kyoto University
+# default
+MAKE_VERSION := 4.1
+# makefile
+.DEFAULT_GOAL := 
+# environment
+PROGRAMFILES(X86) = C:\Program Files (x86)
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LOCALAPPDATA = C:\Users\expou\AppData\Local
+# environment
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 126 Stepping 5, GenuineIntel
+# environment
+OS = Windows_NT
+# environment
+VSCODE_IPC_HOOK = \\.\pipe\8676e33f485ddc061feae0cb5b425de9-1.67.2-main-sock
+# environment
+KMP_BLOCKTIME = 0
+# environment
+HOMEPATH = \Users\expou
+# environment
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# environment
+PROMPT = $P$G
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+SYSTEMROOT = C:\WINDOWS
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# environment
+APPDATA = C:\Users\expou\AppData\Roaming
+# environment
+TEMP = /cygdrive/c/Users/expou/AppData/Local/Temp
+# environment
+COMSPEC = C:\WINDOWS\system32\cmd.exe
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+SYSTEMDRIVE = C:
+# environment
+SESSIONNAME = Console
+# environment
+PROCESSOR_REVISION = 7e05
+# default
+.INCLUDE_DIRS = /usr/include /usr/include
+# default
+.RECIPEPREFIX := 
+# environment
+LANG = C
+# environment
+PROCESSOR_LEVEL = 6
+# environment
+TERM = cygwin
+# environment
+FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
+# environment
+VSCODE_PID = 36112
+# environment
+USERDOMAIN_ROAMINGPROFILE = DESKTOP-L0CHSDO
+# variable set hash-table stats:
+# Load=104/1024=10%, Rehash=0, Collisions=17/123=14%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 1949725767, inode 3940649675045710): 10 files, no impossibilities.
+
+# 10 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 17 / storage = 143 B / avg = 8 B
+# current buf: size = 8162 B / used = 143 B / count = 17 / avg = 8 B
+
+# strcache performance: lookups = 20 / hit rate = 15%
+# hash-table stats:
+# Load=17/8192=0%, Rehash=0, Collisions=1/20=5%
+# Finished Make data base on Mon Aug 15 16:16:23 2022
+
+ 
