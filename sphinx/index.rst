@@ -17,7 +17,7 @@ V-Mapper package supports PyPI install.
 
 
 
-You can also install the development version of lingam package from GitHub:
+You can also install the development version of V-Mapper from GitHub:
 
 .. code-block:: bash
 
@@ -36,7 +36,6 @@ To use V-Mapper, import ``vmapper``.
 	:caption: Contents:
 	
 	examples/index
-	vmapper
 
 
 Indices and tables
