@@ -476,9 +476,8 @@ class mapper():
 		ax.set_xlabel(label[0])
 		ax.set_ylabel(label[1])
 		plt.savefig(out_file)
-
 	## ** Visualization with velocity by PCA
-	 def out_graph_pca_V(
+	def out_graph_pca_V(
 		self,
 		data,
 		data_vel,
@@ -486,7 +485,7 @@ class mapper():
 		out_file='vmapper',
 		fig_title='',
 		fig_fmt='png'
-)	:
+	):
 		file='%s/%s_tsne.%s' % (out_dir, out_file, fig_fmt)
 		self.out_graph(data,data_vel,"PCA",file,"V-Mapper (PCA coordinate)",["PC1","PC2"])
 
@@ -502,8 +501,6 @@ class mapper():
 	):
 		file='%s/%s_tsne.%s' % (out_dir, out_file, fig_fmt)
 		self.out_graph(data,data_vel,"TSNE",file,"V-Mapper (tSNE coordinate)",["tSNE1","tSNE2"])
-
-
 	def out_cytoscape_V(
 		self,
 		data,
