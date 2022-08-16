@@ -1,4 +1,4 @@
-.. module:: screcode
+.. module:: vmapper
 
 API Reference
 =============
@@ -6,4 +6,4 @@ API Reference
 .. toctree::
     :maxdepth: 2
 
-    screcode
+    vmapper
