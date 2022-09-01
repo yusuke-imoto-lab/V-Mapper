@@ -3,7 +3,7 @@
 V-Mapper
 =============
 
-.. automodule:: vmapper
+.. automodule:: vmapper.vmapper
    :members:
    :undoc-members:
    :show-inheritance:
