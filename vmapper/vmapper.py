@@ -59,7 +59,7 @@ class mapper():
 					cube_max[i,j] = 0.5*(bd[j+1]+bd[j+2])
 					cube_min[i,j+1] = 0.5*(bd[j]+bd[j+1])
 		data_sub_id_1d = np.empty([Dim,num_cube],dtype=list)
-		data_sub_id_1d = np.array([[np.where((data_p.T[i_dim]>=cube_min[i_dim,i_cube]) & (data_p.T[i_dim]<=cube_max[i_dim,i_cube]))[0] for i_cube in range(num_cube)] for i_dim in range(Dim)])
+		data_sub_id_1d = np.array([[np.where((data_p.T[i_dim]>=cube_min[i_dim,i_cube]) & (data_p.T[i_dim]<=cube_max[i_dim,i_cube]))[0] for i_cube in range(num_cube)] for i_dim in range(Dim)],dtype=object)
 		num_cube_all = num_cube**Dim
 		data_sub_id = np.empty(num_cube_all,dtype=list)
 		data_sub_id = [data_sub_id_1d[0,i%num_cube] for i in range(num_cube_all)]
