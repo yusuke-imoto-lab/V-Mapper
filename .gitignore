@@ -34,4 +34,4 @@ poetry.lock
 poetry.toml
 
 # Test
-*.ipynb
+#*.ipynb
