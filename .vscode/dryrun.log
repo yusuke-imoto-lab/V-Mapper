@@ -1,6 +1,6 @@
 make.exe --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/cygdrive/c/Users/expou/Documents/GitHub/V-Mapper'
-make: Leaving directory '/cygdrive/c/Users/expou/Documents/GitHub/V-Mapper'
+make.exe: �f�B���N�g�� `c:/Users/expou/OneDrive/�h�L�������g/GitHub/V-Mapper' �ɓ���܂�
+make.exe: �f�B���N�g�� `c:/Users/expou/OneDrive/�h�L�������g/GitHub/V-Mapper' ����o�܂�
  
-make: *** No targets specified and no makefile found.  Stop.
+make.exe: *** �^�[�Q�b�g���w�肳��Ă��炸, makefile ��������܂���.  ���~.
 
