@@ -1,287 +1,320 @@
 make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# ����̓t���[�\�t�g�E�F�A�ł�. ���p�����ɂ��Ă̓\�[�X��
+# ������������.
+# ���Ɛ������̖ړI�ւ̓K�����̔@���Ɋւ�炸, ���ۏ؂ł�.
 
-# GNU Make 4.1
-# Built for x86_64-pc-msys
-# Copyright (C) 1988-2014 Free Software Foundation, Inc.
-# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
-# This is free software: you are free to change and redistribute it.
-# There is NO WARRANTY, to the extent permitted by law.
+# This program built for i386-pc-mingw32
  
 
-# Make data base, printed on Sat Aug 27 15:55:06 2022
+# Make �f�[�^�x�[�X�o�� Mon Jan 02 13:38:09 2023
 
-# Variables
+# �ϐ�
 
-# 'override' directive
-GNUMAKEFLAGS := 
-# automatic
+# �����ϐ�
 <D = $(patsubst %/,%,$(dir $<))
-# automatic
+# �����ϐ�
 ?F = $(notdir $?)
-# environment
-OMP_WAIT_POLICY = PASSIVE
-# default
-.SHELLFLAGS := -c
-# makefile
-MAKEFLAGS = pqrR
-# automatic
-?D = $(patsubst %/,%,$(dir $?))
-# automatic
-@D = $(patsubst %/,%,$(dir $@))
-# environment
-HOMEDRIVE = C:
-# automatic
-@F = $(notdir $@)
-# automatic
-^D = $(patsubst %/,%,$(dir $^))
-# makefile
-CURDIR := /cygdrive/c/Users/expou/Documents/GitHub/V-Mapper
-# default
-SHELL := /bin/sh
-# environment
-WINDIR = C:\WINDOWS
-# environment
-VSCODE_NLS_CONFIG = {"locale":"ja","availableLanguages":{"*":"ja"},"_languagePackId":"e6c586e25df759b7fd1d7a26b78d86d4.ja","_translationsConfigFile":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\e6c586e25df759b7fd1d7a26b78d86d4.ja\\tcf.json","_cacheRoot":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\e6c586e25df759b7fd1d7a26b78d86d4.ja","_resolvedLanguagePackCoreLocation":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\e6c586e25df759b7fd1d7a26b78d86d4.ja\\6d9b74a70ca9c7733b29f0456fd8195364076dda","_corruptedFile":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\e6c586e25df759b7fd1d7a26b78d86d4.ja\\corrupted.info","_languagePackSupport":true}
-# environment
-ONEDRIVE = C:\OneDrive - Kyoto University
-# environment
-PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
-# makefile
-MAKEFILE_LIST := 
-# environment
-FPS_BROWSER_USER_PROFILE_STRING = Default
-# environment
-TMP = /cygdrive/c/Users/expou/AppData/Local/Temp
-# environment
-PROGRAMW6432 = C:\Program Files
-# environment
-PROGRAMDATA = C:\ProgramData
-# environment
-VSCODE_CWD = C:\Users\expou\AppData\Local\GitHubDesktop\app-3.0.5
-# default
-MAKE_HOST := x86_64-pc-msys
-# environment
-PATH = /cygdrive/c/Program Files/ImageMagick-7.0.10-Q16-HDRI:/cygdrive/c/texlive/2020/bin/win32:/cygdrive/c/WINDOWS/system32:/cygdrive/c/WINDOWS:/cygdrive/c/WINDOWS/System32/Wbem:/cygdrive/c/WINDOWS/System32/WindowsPowerShell/v1.0:/cygdrive/c/WINDOWS/System32/OpenSSH:/cygdrive/c/w32tex/bin:/cygdrive/c/Strawberry/c/bin:/cygdrive/c/Strawberry/perl/site/bin:/cygdrive/c/Strawberry/perl/bin:/cygdrive/c/Program Files (x86)/PDFtk/bin:/cygdrive/c/Program Files/Git/cmd:/cygdrive/c/Program Files/nodejs:/cygdrive/c/Users/expou/anaconda3:/mingw-w64/bin:/usr/bin:/bin:/cygdrive/c/Users/expou/anaconda3/Scripts:/cygdrive/c/Users/expou/AppData/Local/Programs/Julia-1.6.3/bin:/cygdrive/c/Users/expou/AppData/Local/Microsoft/WindowsApps:/cygdrive/c/Users/expou/AppData/Local/GitHubDesktop/bin:/cygdrive/c/Users/expou/AppData/Local/Programs/Microsoft VS Code/bin:/cygdrive/c/Users/expou/AppData/Roaming/npm
-# environment
-COMMONPROGRAMW6432 = C:\Program Files\Common Files
-# environment
-LC_ALL = C
-# environment
-PROCESSOR_ARCHITECTURE = AMD64
-# environment
-USERPROFILE = C:\Users\expou
- 
-# environment
-!C: = c:\Users\expou\Documents\GitHub\V-Mapper
-# environment
-ALLUSERSPROFILE = C:\ProgramData
-# environment
-NUMBER_OF_PROCESSORS = 8
-# environment
-ELECTRON_RUN_AS_NODE = 1
-# default
-.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
-# environment
-HOMCLOUD_PARAVIEW_PROGRAMNAME = C:\Program Files\ParaView 5.10.0-Windows-Python3.9-msvc2017-AMD64\bin\paraview.exe
-# automatic
-%F = $(notdir $%)
-# environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_29832_TLLHAFHWTKVIVYFY
-# environment
-COMPUTERNAME = DESKTOP-L0CHSDO
-# environment
-PROGRAMFILES = C:\Program Files
-# environment
-DRIVERDATA = C:\Windows\System32\Drivers\DriverData
-# environment
-RTOOLS40_HOME = C:\rtools40
-# environment
-ORIGINAL_XDG_CURRENT_DESKTOP = undefined
-# environment
-USERNAME = expou
-# environment
-PUBLIC = C:\Users\Public
-# environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
-# environment
-HOME = /home/expou
-# environment
-VSCODE_CLI = 1
-# environment
-VSCODE_CODE_CACHE_PATH = C:\Users\expou\AppData\Roaming\Code\CachedData\6d9b74a70ca9c7733b29f0456fd8195364076dda
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-COMMONPROGRAMFILES = C:\Program Files\Common Files
-# environment
-LOGONSERVER = \\DESKTOP-L0CHSDO
-# environment
-ONEDRIVECONSUMER = C:\OneDrive
-# environment
-VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# environment
-USERDOMAIN = DESKTOP-L0CHSDO
-# environment
-MAKELEVEL := 0
-# default
-MAKE = $(MAKE_COMMAND)
-# default
-MAKECMDGOALS := all
-# environment
-LOCAL_GIT_DIRECTORY = C:\Users\expou\AppData\Local\GitHubDesktop\app-3.0.5\resources\app\git
-# environment
-ONEDRIVECOMMERCIAL = C:\OneDrive - Kyoto University
-# default
-MAKE_VERSION := 4.1
-# makefile
-.DEFAULT_GOAL := 
-# environment
-PROGRAMFILES(X86) = C:\Program Files (x86)
-# automatic
-%D = $(patsubst %/,%,$(dir $%))
-# environment
-LOCALAPPDATA = C:\Users\expou\AppData\Local
-# environment
-PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
-# default
-MAKE_COMMAND := make
-# default
-.VARIABLES := 
-# automatic
-*F = $(notdir $*)
-# environment
-PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 126 Stepping 5, GenuineIntel
-# environment
-OS = Windows_NT
-# environment
-VSCODE_IPC_HOOK = \\.\pipe\8676e33f485ddc061feae0cb5b425de9-1.70.1-main-sock
-# environment
-KMP_BLOCKTIME = 0
-# environment
-HOMEPATH = \Users\expou
-# environment
-COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
-# environment
-PROMPT = $P$G
-# environment
-MFLAGS = -pqrR
-# automatic
-*D = $(patsubst %/,%,$(dir $*))
-# environment
-SYSTEMROOT = C:\WINDOWS
-# automatic
-+D = $(patsubst %/,%,$(dir $+))
-# automatic
-+F = $(notdir $+)
-# environment
-APPDATA = C:\Users\expou\AppData\Roaming
-# environment
-TEMP = /cygdrive/c/Users/expou/AppData/Local/Temp
-# environment
-COMSPEC = C:\WINDOWS\system32\cmd.exe
-# default
-MAKEFILES := 
-# automatic
-<F = $(notdir $<)
-# environment
+# ���ϐ�
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# automatic
+# ���ϐ�
+PTSMINSTALLPATH_X86 = C:\Program Files (x86)\HP\HP ProtectTools Security Manager\Bin\
+# makefile �ϐ�
+MAKEFLAGS = Rrqp
+# �����ϐ�
+?D = $(patsubst %/,%,$(dir $?))
+# �����ϐ�
+@D = $(patsubst %/,%,$(dir $@))
+# ���ϐ�
+HOMEDRIVE = C:
+# �����ϐ�
+@F = $(notdir $@)
+# �����ϐ�
+^D = $(patsubst %/,%,$(dir $^))
+# makefile �ϐ�
+CURDIR := 
+ c:/Users/expou/OneDrive/�h�L�������g/GitHub/V-Mapper
+# �f�t�H���g
+SHELL := sh.exe
+# ���ϐ�
+WINDIR = C:\WINDOWS
+# ���ϐ�
+VSCODE_NLS_CONFIG = {"locale":"ja","availableLanguages":{"*":"ja"},"_languagePackId":"04aa7916830e492c43fed2ef0edd0889.ja","_translationsConfigFile":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\04aa7916830e492c43fed2ef0edd0889.ja\\tcf.json","_cacheRoot":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\04aa7916830e492c43fed2ef0edd0889.ja","_resolvedLanguagePackCoreLocation":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\04aa7916830e492c43fed2ef0edd0889.ja\\d045a5eda657f4d7b676dedbfa7aab8207f8a075","_corruptedFile":"C:\\Users\\expou\\AppData\\Roaming\\Code\\clp\\04aa7916830e492c43fed2ef0edd0889.ja\\corrupted.info","_languagePackSupport":true}
+# ���ϐ�
+ONEDRIVE = C:\OneDrive - Kyoto University
+# ���ϐ�
+VSCODE_PID = 14912
+# ���ϐ�
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
+# makefile �ϐ�
+MAKEFILE_LIST := 
+# ���ϐ�
+FPS_BROWSER_USER_PROFILE_STRING = Default
+# ���ϐ�
+TMP = C:\Users\expou\AppData\Local\Temp
+# ���ϐ�
+PROGRAMW6432 = C:\Program Files
+# ���ϐ�
+PROGRAMDATA = C:\ProgramData
+# ���ϐ�
+VSCODE_CWD = C:\Users\expou\AppData\Local\GitHubDesktop\app-3.1.2
+# ���ϐ�
+PATH = C:\Python310\Scripts\;C:\Python310\;C:\texlive\2019\bin\win32;C:\Program Files\ImageMagick-7.0.9-Q16;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Wolfram Research\WolframScript\;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.50\bin;C:\Program Files (x86)\gs\gs9.50\lib;C:\Program Files\PuTTY\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\dotnet\;C:\Users\expou\anaconda3;C:\Users\expou\anaconda3\Library\mingw-w64\bin;C:\Users\expou\anaconda3\Library\usr\bin;C:\Users\expou\anaconda3\Library\bin;C:\Users\expou\anaconda3\Scripts;C:\Users\expou\AppData\Local\Microsoft\WindowsApps;C:\Users\expou\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Users\expou\AppData\Local\GitHubDesktop\bin;C:\Users\expou\AppData\Roaming\npm;C:\Users\expou\.dotnet\tools
+# ���ϐ�
+ONLINESERVICES = Online Services
+# ���ϐ�
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# ���ϐ�
+ZES_ENABLE_SYSMAN = 1
+# ���ϐ�
+CHOCOLATEYLASTPATHUPDATE = 132918638889194452
+# ���ϐ�
+PROCESSOR_ARCHITECTURE = x86
+# ���ϐ�
+USERPROFILE = C:\Users\expou
+# ���ϐ�
+CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
+# ���ϐ�
+ALLUSERSPROFILE = C:\ProgramData
+# ���ϐ�
+NUMBER_OF_PROCESSORS = 8
+# ���ϐ�
+ELECTRON_RUN_AS_NODE = 1
+# �f�t�H���g
+.FEATURES := target-specific order-only second-expansion else-if archives
+# �����ϐ�
+%F = $(notdir $%)
+# ���ϐ�
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_14912_XKJSYDXPDEASDYTT
+# ���ϐ�
+COMPUTERNAME = DESKTOP-SOGTV9V
+# ���ϐ�
+PROGRAMFILES = C:\Program Files (x86)
+# ���ϐ�
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# ���ϐ�
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# ���ϐ�
+USERNAME = expou
+# ���ϐ�
+PUBLIC = C:\Users\Public
+# ���ϐ�
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# ���ϐ�
+VSCODE_CLI = 1
+# ���ϐ�
+VSCODE_CODE_CACHE_PATH = C:\Users\expou\AppData\Roaming\Code\CachedData\d045a5eda657f4d7b676dedbfa7aab8207f8a075
+# ���ϐ�
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# ���ϐ�
+COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
+# ���ϐ�
+LOGONSERVER = \\DESKTOP-SOGTV9V
+# ���ϐ�
+ONEDRIVECONSUMER = C:\OneDrive
+# ���ϐ�
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# ���ϐ�
+USERDOMAIN = DESKTOP-SOGTV9V
+# �f�t�H���g
+MAKE = $(MAKE_COMMAND)
+# �f�t�H���g
+MAKECMDGOALS := all
+# ���ϐ�
+LOCAL_GIT_DIRECTORY = C:\Users\expou\AppData\Local\GitHubDesktop\app-3.1.2\resources\app\git
+# ���ϐ�
+ONEDRIVECOMMERCIAL = C:\OneDrive - Kyoto University
+# �f�t�H���g
+MAKE_VERSION := 3.81
+# makefile �ϐ�
+.DEFAULT_GOAL := 
+# ���ϐ�
+PROGRAMFILES(X86) = C:\Program Files (x86)
+# ���ϐ�
+BRB = C:\Program Files\HP\Sure Click\bin
+# �����ϐ�
+%D = $(patsubst %/,%,$(dir $%))
+# ���ϐ�
+LOCALAPPDATA = C:\Users\expou\AppData\Local
+# ���ϐ�
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+# �f�t�H���g
+MAKE_COMMAND := make.exe
+# ���ϐ�
+PROCESSOR_ARCHITEW6432 = AMD64
+# �f�t�H���g
+.VARIABLES := 
+# �����ϐ�
+*F = $(notdir $*)
+# ���ϐ�
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+# ���ϐ�
+OS = Windows_NT
+# ���ϐ�
+VSCODE_IPC_HOOK = \\.\pipe\8676e33f485ddc061feae0cb5b425de9-1.72.2-main-sock
+# ���ϐ�
+HOMEPATH = \Users\expou
+# ���ϐ�
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# ���ϐ�
+PROMPT = $P$G
+# ���ϐ�
+MFLAGS = -Rrqp
+# �����ϐ�
+*D = $(patsubst %/,%,$(dir $*))
+# ���ϐ�
+REGIONCODE = APJ
+# ���ϐ�
+SYSTEMROOT = C:\WINDOWS
+# �����ϐ�
++D = $(patsubst %/,%,$(dir $+))
+# ���ϐ�
+PLATFORMCODE = AN
+# �����ϐ�
++F = $(notdir $+)
+# ���ϐ�
+APPDATA = C:\Users\expou\AppData\Roaming
+# ���ϐ�
+__COMPAT_LAYER = DetectorsAppHealth
+# ���ϐ�
+TEMP = C:\Users\expou\AppData\Local\Temp
+# ���ϐ�
+COMSPEC = C:\WINDOWS\system32\cmd.exe
+# ���ϐ�
+PTSMINSTALLPATH = c:\Program Files\HP\HP ProtectTools Security Manager\Bin\
+# �f�t�H���g
+MAKEFILES := 
+# �����ϐ�
+<F = $(notdir $<)
+# ���ϐ�
+LC_ALL = C
+# �����ϐ�
 ^F = $(notdir $^)
-# default
+# �f�t�H���g
 SUFFIXES := 
-# environment
+# ���ϐ�
 SYSTEMDRIVE = C:
-# environment
+# ���ϐ�
 SESSIONNAME = Console
-# environment
-PROCESSOR_REVISION = 7e05
-# default
-.INCLUDE_DIRS = /usr/include /usr/include
-# default
-.RECIPEPREFIX := 
-# environment
+# ���ϐ�
+PROCESSOR_REVISION = 8e0c
+# ���ϐ�
+MAKELEVEL := 0
+# ���ϐ�
 LANG = C
-# environment
+# ���ϐ�
 PROCESSOR_LEVEL = 6
-# environment
-TERM = cygwin
-# environment
+# ���ϐ�
 FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
-# environment
-VSCODE_PID = 29832
-# environment
-USERDOMAIN_ROAMINGPROFILE = DESKTOP-L0CHSDO
-# variable set hash-table stats:
- 
-# Load=99/1024=10%, Rehash=0, Collisions=17/118=14%
- 
+# ���ϐ�
+BRS = C:\Program Files\HP\Sure Click\servers
+# ���ϐ�
+USERDOMAIN_ROAMINGPROFILE = DESKTOP-SOGTV9V
+# �ϐ��Z�b�g�̃n�b�V���e�[�u���̏��:
+# Load=99/1024=10%, Rehash=0, Collisions=10/116=9%
 
 # Pattern-specific Variable Values
 
-# No pattern-specific variable values.
+# �p�^�[���w��ϐ��̒l�Ȃ�.
 
-# Directories
+# �f�B���N�g��
 
-# . (device 1949725767, inode 3940649675045710): 10 files, no impossibilities.
+# C:\w32tex\bin (key C:/w32tex/bin, mtime 1583471101): 533 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\anaconda3 (key C:/Users/expou/anaconda3, mtime 1672399253): 87 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Program Files (x86)\gs\gs9.50\lib (key C:/Program Files (x86)/gs/gs9.50/lib, mtime 1583470748): 198 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\texlive\2019\bin\win32 (key C:/texlive/2019/bin/win32, mtime 1583542876): 543 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 1602955521): 31 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1671328853): 172 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# . (key c:/Users/expou/OneDrive/�h�L�������g/GitHub/V-Mapper, mtime 1672634271): 12 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\AppData\Local\GitHubDesktop\bin (key C:/Users/expou/AppData/Local/GitHubDesktop/bin, mtime 1647300426): 4 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\anaconda3\Library\usr\bin: ��Ԃ𒲂ׂ��܂���ł���.
+# C:\Users\expou\AppData\Local\Microsoft\WindowsApps (key C:/Users/expou/AppData/Local/Microsoft/WindowsApps, mtime 1671066460): 47 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\anaconda3\Library\bin (key C:/Users/expou/anaconda3/Library/bin, mtime 1672399253): 451 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\ProgramData\chocolatey\bin (key C:/ProgramData/chocolatey/bin, mtime 1647390289): 13 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Program Files\nodejs\ (key C:/Program Files/nodejs/, mtime 1652165270): 13 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Python310\ (key C:/Python310/, mtime 1647390511): 18 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\anaconda3\Scripts (key C:/Users/expou/anaconda3/Scripts, mtime 1672399252): 312 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Python310\Scripts\ (key C:/Python310/Scripts/, mtime 1647390511): 5 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\anaconda3\Library\mingw-w64\bin (key C:/Users/expou/anaconda3/Library/mingw-w64/bin, mtime 1607651594): 15 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Program Files\ImageMagick-7.0.9-Q16 (key C:/Program Files/ImageMagick-7.0.9-Q16, mtime 1580629757): 72 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\WINDOWS\System32\OpenSSH\: ��Ԃ𒲂ׂ��܂���ł���.
+# C:\Program Files\PuTTY\ (key C:/Program Files/PuTTY/, mtime 1595996491): 15 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Program Files (x86)\Wolfram Research\WolframScript\ (key C:/Program Files (x86)/Wolfram Research/WolframScript/, mtime 1580520312): 5 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\WINDOWS (key C:/WINDOWS, mtime 1671328852): 127 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Program Files\dotnet\ (key C:/Program Files/dotnet/, mtime 1669191412): 13 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1671859692): 3017 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/expou/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1667187609): 4 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Program Files (x86)\gs\gs9.50\bin (key C:/Program Files (x86)/gs/gs9.50/bin, mtime 1583470751): 6 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\AppData\Roaming\npm (key C:/Users/expou/AppData/Roaming/npm, mtime 1652165254): 2 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
+# C:\Users\expou\.dotnet\tools: ��Ԃ𒲂ׂ��܂���ł���.
+# C:\Program Files (x86)\GnuWin32\bin (key C:/Program Files (x86)/GnuWin32/bin, mtime 1607933931): 5 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C����.
 
-# 10 files, no impossibilities in 1 directories.
+# 5720 �̃t�@�C��, 0 �̓K�p�s�\�t�@�C���� (29 �̃f�B���N�g����).
 
-# Implicit Rules
+# �Öك��[��
 
-# No implicit rules.
+# �Öك��[���Ȃ�.
 
-# Files
+# �t�@�C��
 
-# Not a target:
+# �^�[�Q�b 
+make.exe: *** �^�[�Q�b�g `all' �� make ���郋�[��������܂���.  ���~.
+
+�g�ł͂���܂���:
 all:
-#  Command line target.
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
+#  �R�}���h���C���^�[�Q�b�g.
+#  �Öك��[���̒T�����s���܂���.
+#  �t�@�C�������݂��܂���.
+#  �t�@�C���͍X�V����Ă��܂���.
+# �ϐ��Z�b�g�̃n�b�V���e�[�u���̏��:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-# Not a target:
-Makefile:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
-
-# Not a target:
-makefile:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
-
-# Not a target:
+# �^�[�Q�b�g�ł͂���܂���:
 .DEFAULT:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  �Öك��[���̒T���͍s���܂���ł���.
+#  �C���������`�F�b�N����邱�Ƃ͂���܂���.
+#  �t�@�C���͍X�V����Ă��܂���.
 
-# Not a target:
+# �^�[�Q�b�g�ł͂���܂���:
+makefile:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  �Öك��[���̒T�����s���܂���.
+#  �t�@�C�������݂��܂���.
+#  �t�@�C���͍X�V����Ă��܂�.
+#  �X�V�Ɏ��s���܂���.
+# �ϐ��Z�b�g�̃n�b�V���e�[�u���̏��:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# �^�[�Q�b�g�ł͂���܂���:
+.SUFFIXES:
+#  �Öك��[���̒T���͍s���܂���ł���.
+#  �C���������`�F�b�N����邱�Ƃ͂���܂���.
+#  �t�@�C���͍X�V����Ă��܂���.
+
+# �^�[�Q�b�g�ł͂���܂���:
 GNUmakefile:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  �Öك��[���̒T�����s���܂���.
+#  �t�@�C�������݂��܂���.
+#  �t�@�C���͍X�V����Ă��܂�.
+#  �X�V�Ɏ��s���܂���.
+# �ϐ��Z�b�g�̃n�b�V���e�[�u���̏��:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-# files hash-table stats:
-# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
-# VPATH Search Paths
+# �t�@�C���n�b�V���e�[�u���̏��:
+# Load=5/1024=0%, Rehash=0, Collisions=0/16=0%
+# VPATH �T���p�X
 
-# No 'vpath' search paths.
+# `vpath' �T���p�X�͂���܂���
 
-# No general ('VPATH' variable) search path.
+# ��ʂ� (`VPATH' �ϐ�) �T���p�X�Ȃ�.
 
-# strcache buffers: 1 (0) / strings = 17 / storage = 143 B / avg = 8 B
-# current buf: size = 8162 B / used = 143 B / count = 17 / avg = 8 B
+# # of strings in strcache: 0
+# # of strcache buffers: 0
+# strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
+# strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# strcache performance: lookups = 20 / hit rate = 15%
-# hash-table stats:
- 
-# Load=17/8192=0%, Rehash=0, Collisions=1/20=5%
-# Finished Make data base on Sat Aug 27 15:55:06 2022
+# Make �f�[�^�x�[�X�I�� Mon Jan 02 13:38:09 2023
 
  
