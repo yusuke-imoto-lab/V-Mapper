@@ -1,5 +1,6 @@
 # V-Mapper - Velocity Mapper
 
+<div style="text-align:left"><img style="width:50%; height: auto" src="https://github.com/yusuke-imoto-lab/V-Mapper/blob/main/images/Logo_VMapper.png"/></div>
 <div style="text-align:left"><img style="width:60%; height: auto" src="https://github.com/yusuke-imoto-lab/V-Mapper/blob/main/images/VMapper_Top.jpg"/></div>
 
 V-Mapper (velocity Mapper) is an extension of Mapper, which is a well-known topological data analysis (TDA)  method for extracting high-dimensional topological structures as a graph \[[Singh et al., 2007](https://doi.org/10.2312/SPBG/SPBG07/091-100)\].
