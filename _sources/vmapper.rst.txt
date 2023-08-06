@@ -1,0 +1,37 @@
+vmapper package
+===============
+
+Submodules
+----------
+
+vmapper.color module
+--------------------
+
+.. automodule:: vmapper.color
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+vmapper.meta\_func module
+-------------------------
+
+.. automodule:: vmapper.meta_func
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+vmapper.vmapper module
+----------------------
+
+.. automodule:: vmapper.vmapper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: vmapper
+   :members:
+   :undoc-members:
+   :show-inheritance:
